@@ -18,10 +18,11 @@ routes.post("/register", async (req, res) => {
             username: req.body.username,
             email: req.body.email,
             password: hashedPass,
+            desc:req.body.desc
         })
 
         const newUser = await user.save();
-        res.send(200,json(newUser))
+        res.send(json(newUser))
     } catch (err) {
         console.log(err)
     }

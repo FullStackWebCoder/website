@@ -2,8 +2,9 @@ const routes = require("express").Router();
 const User = require("../models/User");
 const bcrypt = require("bcrypt");
 
-routes.get("/",(req,res)=>{
-    res.send("User data")
+routes.get("/",async(req,res)=>{
+    const result = await User.find()  
+    res.send(result);
 })
 
 routes.put("/:id/:password",async(req,res)=>{
@@ -12,11 +13,11 @@ routes.put("/:id/:password",async(req,res)=>{
         if(bcrypt.compare(req.params.password,valid.password)){
             const result = await User.updateOne({_id:req.params.id},{$set:req.body})
         }
+   }else{
+         res.send("Invalid User")
    }
-    const result = await User.updateOne({
-        _id:req.params.id},{$set:req.body})
-    console.log(valid==null);
-    console.log(req.params.id);
+    // const result = await User.updateOne({
+    //     _id:req.params.id},{$set:req.body})
     res.send({result:"Update"})
 })
 

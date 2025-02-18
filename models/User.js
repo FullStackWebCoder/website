@@ -18,6 +18,7 @@ const userSchema = new mongoose.Schema({
         type:String,
         required:true,
         max:70,
+        unique:true,
     },
     profilePic:{
         type:String,
